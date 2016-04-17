@@ -19,7 +19,6 @@ ScheduleHandler.prototype.getMessages = function (callback) {
         resolve(data.Items.map(function (item) {
           return { chat_id: item.chat_id.S, text: item.text.S };
         }));
-
       }
     });
   }).nodeify(callback);
