@@ -2,7 +2,7 @@ var AWS = require('aws-sdk')
   , dynamodb = new AWS.DynamoDB();
 
 var Remind = function () {
-    
+
 }
 
 Remind.prototype.addChatMessage = function (chatid, text, callback) {
@@ -39,22 +39,26 @@ Remind.prototype.removeChatMessage = function (chatid, callback) {
 };
 
 Remind.prototype.respond = function (isDirect, text, message) {
-    if (/^говори/i.test(text)) {
-        var textToAdd = text.substring(6).trim();
-        
-        if (textToAdd) {
-            return this.addChatMessage(message.chat.id, textToAdd).then(function () {
-                return "Хорошо";
-            });
-        }
-        else {
-            return "Офигел? Где текст?";
-        }
+  if (!isDirect) {
+    return;
+  }
+
+  if (/^говори/i.test(text)) {
+    var textToAdd = text.substring(6).trim();
+
+    if (textToAdd) {
+      return this.addChatMessage(message.chat.id, textToAdd).then(function () {
+        return "Хорошо";
+      });
     }
-    
-    if (/^хватит$/.test(text)) {
-        return this.removeChatMessage(message.chat.id).then(function () {
-            return "Ладно";
-        });
+    else {
+      return "Офигел? Где текст?";
     }
+  }
+
+  if (/^хватит$/.test(text)) {
+    return this.removeChatMessage(message.chat.id).then(function () {
+      return "Ладно";
+    });
+  }
 }
