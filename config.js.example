@@ -1,0 +1,7 @@
+var config = {};
+
+config.bot = {}
+config.bot.id = "";
+config.bot.token = "";
+
+module.exports = config;

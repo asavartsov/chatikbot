@@ -1,0 +1,23 @@
+{
+  "name": "chatikbot",
+  "description": "Чатик-бот",
+  "tags": [],
+  "version": "0.0.1",
+  "author": "A. Savartsov <asavartsov@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asavartsov/chatikbot.git"
+  },
+  "bugs": {
+    "url": "http://github.com/asavartsov/chatikbot/issues"
+  },
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "promise": "7.1.1",
+    "telegram-bot-api": "~1.0.0"
+  }
+}
