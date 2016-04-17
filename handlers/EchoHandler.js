@@ -1,5 +1,6 @@
 var Promise = require('promise')
   , config = require('../config')
+  , commands = require('./commands/')
   , Bot = require('../Bot')
 
 

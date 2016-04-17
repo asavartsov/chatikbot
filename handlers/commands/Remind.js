@@ -1,4 +1,4 @@
-AWS = require('aws-sdk')
+var AWS = require('aws-sdk')
   , dynamodb = new AWS.DynamoDB();
 
 var Remind = function () {
