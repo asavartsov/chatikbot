@@ -1,10 +1,7 @@
 var Promise = require('promise')
   , config = require('../config')
   , commands = require('./commands/')
-  , Bot = require('../Bot')
-
-
-var 
+  , Bot = require('../Bot');
 
 function EchoHandler(context) {
   this.context = context;
