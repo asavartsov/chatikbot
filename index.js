@@ -1,10 +1,8 @@
 var ScheduleHandler = require("./handlers/ScheduleHandler")
   , EchoHandler = require('./handlers/EchoHandler');
+  
+var echo = new EchoHandler();
+var schedule = new ScheduleHandler();
 
-exports.echoHandler = function (event, context) {
-  new EchoHandler(context).handle(event);
-};
-
-exports.scheduleHandler = function (event, context) {
-  new ScheduleHandler(context).handle(event);
-};
+exports.echoHandler = echo.handle.bind(echo);
+exports.scheduleHandler = schedule.handle.bind(schedule);

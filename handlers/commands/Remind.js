@@ -1,11 +1,18 @@
 var AWS = require('aws-sdk')
-  , dynamodb = new AWS.DynamoDB();
+  , dynamodb = new AWS.DynamoDB()
+  , Promise = require('promise');
 
-var Remind = function () {
+function Remind() {
 
 }
 
-Remind.prototype.addChatMessage = function (chatid, text, callback) {
+var _ok = function(text) {
+  return function () {
+    return text;
+  }
+}
+
+Remind.prototype.addChatMessage = function (chatid, text) {
   return new Promise(function (resolve, reject) {
     dynamodb.putItem({
       "TableName": "chats",
@@ -20,10 +27,10 @@ Remind.prototype.addChatMessage = function (chatid, text, callback) {
         resolve(data);
       }
     });
-  }).nodeify(callback);
+  });
 };
 
-Remind.prototype.removeChatMessage = function (chatid, callback) {
+Remind.prototype.removeChatMessage = function (chatid) {
   return new Promise(function (resolve, reject) {
     dynamodb.deleteItem({
       "TableName": "chats",
@@ -35,30 +42,26 @@ Remind.prototype.removeChatMessage = function (chatid, callback) {
         resolve(data);
       }
     });
-  }).nodeify(callback);
+  });
 };
 
 Remind.prototype.respond = function (isDirect, text, message) {
-  if (!isDirect) {
-    return;
-  }
+  if (isDirect) {
+    if (/^говори/i.test(text)) {
+      var textToAdd = text.substring(6).trim();
 
-  if (/^говори/i.test(text)) {
-    var textToAdd = text.substring(6).trim();
-
-    if (textToAdd) {
-      return this.addChatMessage(message.chat.id, textToAdd).then(function () {
-        return "Хорошо";
-      });
+      if (textToAdd) {
+        return this.addChatMessage(message.chat.id, textToAdd).then(_ok("Хорошо"));
+      }
+      else {
+        return "Офигел? Где текст?";
+      }
     }
-    else {
-      return "Офигел? Где текст?";
+
+    if (/^хватит$/.test(text)) {
+      return this.removeChatMessage(message.chat.id).then(_ok("Ладно"));
     }
   }
+};
 
-  if (/^хватит$/.test(text)) {
-    return this.removeChatMessage(message.chat.id).then(function () {
-      return "Ладно";
-    });
-  }
-}
+module.exports = Remind;

@@ -1,37 +1,58 @@
 var Promise = require('promise')
   , config = require('../config')
-  , commands = require('./commands/')
-  , Bot = require('../Bot');
+  , commands = require('./commands')
+  , Bot = require('./Bot');
 
-function EchoHandler(context) {
-  this.context = context;
+function EchoHandler() {
 }
 
-EchoHandler.prototype.handle = function (event) {
+EchoHandler.prototype.reply = function (chat_id, text) {
+  if (text) {
+    console.log('Ответ: ' + text);
+    return Bot.sendMessage({ chat_id: chat_id, text: text });
+  }
+}
+
+EchoHandler.prototype.handle = function (event, context, callback) {
   var message = event.message;
   var text = message.text;
-  var meMatch = /^бот(\W+|$)/i;
+  var meMatch = /^бот([\s\.\-\:;!?,]+|$)/i;
   var isDirect = message.reply_to_message && event.message.reply_to_message.from.id == config.bot.id;
-  
+
   if (meMatch.test(message.text)) {
     isDirect = true;
     text = message.text.replace(meMatch, '');
   }
-  
-  commands.forEach(function(command) {
-    command.respond(isDirect, text, message)
-    .then(function (response) {
-        if (response) {
-          return Bot.sendMessage({ chat_id: message.chat.id, text: response });
-        }
-        else {
-          return Promise.resolve();
-        }
-      })
-      .catch(function (err) {
-        Bot.sendMessage({ chat_id: message.chat.id, text: "Хрень какая-то: " + err }, this.context.fail);
-      }.bind(this));
-  }, this);
+
+  console.log({ isDirect: isDirect, text: text });
+
+  for (var key in commands) {
+    var command = commands[key];
+    var result = command.respond(isDirect, text, message);
+
+    if (result instanceof Promise) {
+      result
+        .then(function (response) {
+          if (response) {
+            console.log("Ответ: " + response);
+            Bot.sendMessage({ chat_id: message.chat.id, text: response });
+            callback(null, true);
+          }
+        })
+        .catch(function (err) {
+          console.log("Ошиюка: " + err);
+          Bot.sendMessage({ chat_id: message.chat.id, text: "Хрень какая-то" + err ? ", " + err : "" });
+          callback(err);
+        });
+    }
+    else if (result) {
+      console.log("Ответ: " + result);
+      Bot.sendMessage({ chat_id: message.chat.id, text: result });
+      callback(null, true);
+    }
+    
+    if (result) break;
+  }
 };
 
 module.exports = EchoHandler;
