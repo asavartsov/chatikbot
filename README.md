@@ -61,8 +61,8 @@
     Cat.prototype.respond = function (isDirect, text) {
         // Если сообщение направили напрямую нам
         if (isDirect) {
-            // И оно содержит текст "кота", "котика" или "кошку"
-            if (/ко(та|тика|шку)/i.test(text)) {
+            // И оно содержит текст "кота" или "кошку"
+            if (/ко(та|шку)/i.test(text)) {
                 // Вернуть случайную картинку
                 return "http://thecatapi.com/api/images/get?format=src&type=jpg&_="+Math.random();
             }
