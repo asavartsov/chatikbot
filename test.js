@@ -1,3 +1,44 @@
+var sinon = require('sinon')
+  , mockery = require('mockery')
+  , chai = require('chai')
+  , should = chai.should()
+  , expect = chai.expect;
+  
+
+function Message () {
+  this.update_id = 0;
+  this.message = {
+    "message_id": 234234234,
+    "from": {
+      "id": 123456789,
+      "first_name": "Тест",
+      "last_name": "Тестов"
+    },
+    "chat": {
+      "id": 123456789,
+      "first_name": "Тест",
+      "last_name": "Тестов",
+      "type": "private"
+    },
+    "date": 1460762669,
+    "text": "текст"
+  };
+}
+
+describe('Index Module', function(){
+  var index = require('./index');
+  
+  it ('shoud have echoHandler', function () {
+    expect(index).itself.to.respondTo('echoHandler');
+  });
+  
+  it ('shoud have scheduleHandler', function () {
+    expect(index).itself.to.respondTo('scheduleHandler');
+  });
+});
+
+
+
 var config = require('./config');
 var EchoHandler = require('./handlers/EchoHandler');
 

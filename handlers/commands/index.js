@@ -4,10 +4,10 @@ var Remind = require('./Remind')
   , Cat = require('./Cat')
   , Go = require('./Go');
 
-module.exports = [
-  new Start(),
-  new Remind(),
-  new Cat(),
-  new Go(),
-  new Talk()
-];
+module.exports = {
+  Start: new Start(),
+  Remind: new Remind(),
+  Cat: new Cat(),
+  Go: new Go(),
+  Talk: new Talk()
+};

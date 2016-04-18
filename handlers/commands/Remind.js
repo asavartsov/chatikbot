@@ -3,7 +3,12 @@ var AWS = require('aws-sdk')
   , Promise = require('promise');
 
 function Remind() {
-
+  this.name = 'Напоминание'; 
+  this.description = 'Управляет фиксированным напоминнанием в чат, которое приходит в 22:12 по московскому времени';
+  this.help = { 
+    'говори <текст>': 'Установить напоминанием <текст>', 
+    'хватит': 'Перестать напоминать', 
+  };
 }
 
 var _ok = function(text) {
