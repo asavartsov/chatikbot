@@ -7,8 +7,8 @@ function Start() {
 }
 
 Start.prototype.respond = function (isDirect, text, message, context) {
-    if (text == "/start" || (isDirect && /привет/i.test(text))) {
-        var message = "Привет! Мои модули:\r\n\r\n";
+    if (text == "/start" || (isDirect && /^привет/i.test(text))) {
+        var message = "Hi! Мои модули:\r\n\r\n";
 
         for (var kCmd in context.commands) {
             if (context.commands.hasOwnProperty(kCmd)) {
