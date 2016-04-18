@@ -108,19 +108,15 @@
 
 2. Установить зависимости
 
-
-    $ npm install --production
+    `$ npm install --production`
     
-
 3. Содержимое директории упаковать в ZIP-архив и загрузить на AWS Lambda, среда исполнения: Node JS 4.3.
    Обработчик `index.echoHandler` настраивается на функцию с API Endpoint типа POST, обработчик `index.scheduleHandler`
    настраивается на функцию с источником события CloudWatch Events - Schedule.
 4. Создать в DynamoDB таблицу `chats` с Primary Key `chat_id` - строка
 5. Установить для бота Web Hook, указывающий на API Endpoint функции с обработчиком `echoHandler`
 
-
-    curl --data "url=https://<ENDPOINT>" "https://api.telegram.org/bot<TOKEN>/setWebhook"
-
+    `curl --data "url=https://<ENDPOINT>" "https://api.telegram.org/bot<TOKEN>/setWebhook"`
 
 ## Тестирование (TODO)
 
