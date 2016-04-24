@@ -13,7 +13,7 @@ Start.prototype.respond = function (isDirect, text, message, context) {
         for (var kCmd in context.commands) {
             if (context.commands.hasOwnProperty(kCmd)) {
                 var cmd = context.commands[kCmd];
-                message = message + '*' + cmd.name + '*\r\n' + cmd.description + '\r\n';
+                message = message + cmd.name + '\r\n' + cmd.description + '\r\n';
             
                 if (cmd.help && Object.keys(cmd.help).length > 0) 
                 {
@@ -21,7 +21,7 @@ Start.prototype.respond = function (isDirect, text, message, context) {
                     
                     for (var kHelp in cmd.help) {
                         if (cmd.help.hasOwnProperty(kHelp)) {
-                            message = message + "  _бот, " + kHelp + '_: ' + cmd.help[kHelp] + '\r\n';
+                            message = message + "  бот, " + kHelp + ': ' + cmd.help[kHelp] + '\r\n';
                         }
                     }
                 }

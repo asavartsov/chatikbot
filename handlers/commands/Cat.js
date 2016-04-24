@@ -9,7 +9,7 @@ function Cat() {
 Cat.prototype.respond = function (isDirect, text) {
   if (isDirect) {
     if (/ко(та|шку)/i.test(text)) {
-        return "http://thecatapi.com/api/images/get?format=src&type=jpg&_="+Math.random();
+        return "Мяу!\r\n" + "http://thecatapi.com/api/images/get?format=src&type=jpg&_="+Math.random();
     }
   }
 };

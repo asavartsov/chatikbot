@@ -52,7 +52,7 @@ Remind.prototype.removeChatMessage = function (chatid) {
 
 Remind.prototype.respond = function (isDirect, text, message) {
   if (isDirect) {
-    if (/^говори/i.test(text)) {
+    if (/^говори\ .+/i.test(text)) {
       var textToAdd = text.substring(6).trim();
 
       if (textToAdd) {

@@ -9,6 +9,10 @@ Go.prototype.respond = function (isDirect, text) {
     if (/иди (на|в)/i.test(text)) {
         return "Сам иди";
     }
+    
+    if (/заткнись/i.test(text)) {
+      return "Сам заткнись :)";
+    }
   }
 };
 
