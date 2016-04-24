@@ -35,7 +35,7 @@ EchoHandler.prototype.handle = function (event, context, callback) {
         .then(function (response) {
           if (response) {
             console.log("Ответ: " + response);
-            Bot.sendMessage({ chat_id: message.chat.id, text: response });
+            Bot.sendMessage({ chat_id: message.chat.id, text: response }).catch(console.error);
             callback(null, true);
           }
         })
@@ -47,7 +47,7 @@ EchoHandler.prototype.handle = function (event, context, callback) {
     }
     else if (result) {
       console.log("Ответ: " + result);
-      Bot.sendMessage({ chat_id: message.chat.id, text: result, parse_mode: 'Markdown' });
+      Bot.sendMessage({ chat_id: message.chat.id, text: result }).catch(console.error);
       callback(null, true);
     }
     
