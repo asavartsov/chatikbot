@@ -12,8 +12,8 @@ module.exports = {
   Start: new Start(),
   Remind: new Remind(),
   Cat: new Cat(),
-  Go: new Go(),
   Boobs: new Boobs(),
+  Talk: new Talk(),
   Personal: new Personal(),
-  Talk: new Talk()
+  Go: new Go(),
 };
